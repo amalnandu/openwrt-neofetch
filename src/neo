@@ -1,0 +1,34 @@
+#!/bin/sh
+# Simple Neofetch-like script for OpenWrt
+
+# ASCII art for OpenWrt
+echo -e "\033[1;32m"
+cat << 'EOF'
+       _____
+      /     \
+     /_______\
+     |  ***  | 
+     |  ***  | 
+     |_______|
+EOF
+echo -e "\033[0m"
+
+# Gather system information
+HOSTNAME=$(cat /proc/sys/kernel/hostname)
+OS=$(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2)
+KERNEL=$(uname -r)
+UPTIME=$(uptime | awk '{print $3}' | tr -d ',')
+CPU=$(cat /proc/cpuinfo | grep 'model name' | head -n1 | cut -d':' -f2 | awk '{$1=$1};1')
+[ -z "$CPU" ] && CPU=$(cat /proc/cpuinfo | grep 'machine' | cut -d':' -f2 | awk '{$1=$1};1')
+MEM=$(free | grep Mem | awk '{print $3/1024 " MB / " $2/1024 " MB"}')
+STORAGE=$(df -h / | tail -n1 | awk '{print $3 " / " $2}')
+
+# Display system information
+echo -e "\033[1;34mHost:\033[0m $HOSTNAME"
+echo -e "\033[1;34mOS:\033[0m $OS"
+echo -e "\033[1;34mKernel:\033[0m $KERNEL"
+echo -e "\033[1;34mUptime:\033[0m $UPTIME"
+echo -e "\033[1;34mCPU:\033[0m $CPU"
+echo -e "\033[1;34mMemory:\033[0m $MEM"
+echo -e "\033[1;34mStorage:\033[0m $STORAGE"
+echo -e "\033[1;34mShell:\033[0m $SHELL"
