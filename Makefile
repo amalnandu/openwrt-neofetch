@@ -18,7 +18,7 @@ define Package/$(PKG_NAME)
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Lightweight Neofetch for OpenWrt
-  URL:=https://github.com/you/openwrt-neofetch
+  URL:=https://github.com/amalnandu/openwrt-neofetch
 endef
 
 define Package/$(PKG_NAME)/description
